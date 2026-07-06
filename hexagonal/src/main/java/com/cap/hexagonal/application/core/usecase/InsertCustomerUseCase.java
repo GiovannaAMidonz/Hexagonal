@@ -1,10 +1,11 @@
 package com.cap.hexagonal.application.core.usecase;
 
 import com.cap.hexagonal.application.core.domain.Customer;
+import com.cap.hexagonal.application.ports.in.InsertCustomerInputPort;
 import com.cap.hexagonal.application.ports.out.FindAddressByZipCodeOutputPort;
 import com.cap.hexagonal.application.ports.out.InsertCustomerOutputPort;
 
-public class InsertCustomerUseCase {
+public class InsertCustomerUseCase implements InsertCustomerInputPort {
 
     private  final FindAddressByZipCodeOutputPort findAddressByZipCodeOutputPort;
 
@@ -24,5 +25,12 @@ public class InsertCustomerUseCase {
         custumer.setAddress(address);
         insertCustomerOutputPort.insert(custumer);
 
+    }
+
+    @Override
+    public void insertCustomer(Customer customer, String zipCode) {
+        var address =  findAddressByZipCodeOutputPort.find(zipCode);
+        customer.setAddress(address);
+        insertCustomerOutputPort.insert(customer);
     }
 }
