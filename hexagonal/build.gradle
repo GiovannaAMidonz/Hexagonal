@@ -17,8 +17,8 @@ repositories {
 	mavenCentral()
 }
 
-ext{
-	set('springCloudVersion', '2021.0.4')
+ext {
+	set('springCloudVersion', '2025.0.0')
 }
 
 dependencies {
