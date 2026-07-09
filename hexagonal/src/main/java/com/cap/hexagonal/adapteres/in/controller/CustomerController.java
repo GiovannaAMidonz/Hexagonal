@@ -5,6 +5,7 @@ import com.cap.hexagonal.adapteres.in.controller.mapper.CustomerMapper;
 import com.cap.hexagonal.adapteres.in.controller.request.CustomerRequest;
 import com.cap.hexagonal.adapteres.in.controller.response.CustomerResponse;
 import com.cap.hexagonal.application.core.domain.Customer;
+import com.cap.hexagonal.application.ports.in.DeleteCustomerByIdInputPort;
 import com.cap.hexagonal.application.ports.in.FindCustomerByIdInputPort;
 import com.cap.hexagonal.application.ports.in.InsertCustomerInputPort;
 import com.cap.hexagonal.application.ports.in.UpdateCustomerInputPort;
@@ -25,6 +26,9 @@ public class CustomerController {
 
     @Autowired
     private UpdateCustomerInputPort updateCustomerInputPort;
+
+    @Autowired
+    private DeleteCustomerByIdInputPort  deleteCustomerByIdInputPort;
 
     @Autowired
     private CustomerMapper customerMapper;
@@ -49,6 +53,12 @@ public class CustomerController {
         customer.setID(id);
         updateCustomerInputPort.update(customer,customerRequest.getZipCode());
 
+        return  ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable String id) {
+        deleteCustomerByIdInputPort.delete(id);
         return  ResponseEntity.noContent().build();
     }
 }
