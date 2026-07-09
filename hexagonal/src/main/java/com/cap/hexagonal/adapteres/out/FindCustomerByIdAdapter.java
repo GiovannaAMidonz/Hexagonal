@@ -6,9 +6,10 @@ import com.cap.hexagonal.adapteres.out.repository.mapper.CustomerEntityMapper;
 import com.cap.hexagonal.application.core.domain.Customer;
 import com.cap.hexagonal.application.ports.out.FindCustomerByIdOutputPort;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.Optional;
-
+@Component
 public class FindCustomerByIdAdapter implements FindCustomerByIdOutputPort {
 
     @Autowired
