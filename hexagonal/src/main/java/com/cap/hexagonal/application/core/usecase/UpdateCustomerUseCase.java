@@ -3,11 +3,12 @@ package com.cap.hexagonal.application.core.usecase;
 import com.cap.hexagonal.adapteres.out.client.FindAddressByZipCOdeClient;
 import com.cap.hexagonal.application.core.domain.Customer;
 import com.cap.hexagonal.application.ports.in.FindCustomerByIdInputPort;
+import com.cap.hexagonal.application.ports.in.UpdateCustomerInputPort;
 import com.cap.hexagonal.application.ports.out.FindAddressByZipCodeOutputPort;
 import com.cap.hexagonal.application.ports.out.FindCustomerByIdOutputPort;
 import com.cap.hexagonal.application.ports.out.UpdateCustomerOutputPort;
 
-public class UpdateCustomerUseCase {
+public class UpdateCustomerUseCase implements UpdateCustomerInputPort {
 
     private final FindCustomerByIdInputPort findCustomerByIdInputPort;
 
@@ -24,7 +25,7 @@ public class UpdateCustomerUseCase {
         this.findAddressByZipCodeOutputPort = findAddressByZipCodeOutputPort;
         this.updateCustomerOutputPort = updateCustomerOutputPort;
     }
-
+    @Override
     public void update(Customer customer, String zipCode){
         findCustomerByIdInputPort.find(customer.getID());
         var address = findAddressByZipCodeOutputPort.find(zipCode);

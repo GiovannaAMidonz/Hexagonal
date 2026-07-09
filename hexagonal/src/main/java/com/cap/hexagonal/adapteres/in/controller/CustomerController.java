@@ -4,8 +4,10 @@ package com.cap.hexagonal.adapteres.in.controller;
 import com.cap.hexagonal.adapteres.in.controller.mapper.CustomerMapper;
 import com.cap.hexagonal.adapteres.in.controller.request.CustomerRequest;
 import com.cap.hexagonal.adapteres.in.controller.response.CustomerResponse;
+import com.cap.hexagonal.application.core.domain.Customer;
 import com.cap.hexagonal.application.ports.in.FindCustomerByIdInputPort;
 import com.cap.hexagonal.application.ports.in.InsertCustomerInputPort;
+import com.cap.hexagonal.application.ports.in.UpdateCustomerInputPort;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +22,9 @@ public class CustomerController {
 
     @Autowired
     private FindCustomerByIdInputPort findCustomerByIdInputPort;
+
+    @Autowired
+    private UpdateCustomerInputPort updateCustomerInputPort;
 
     @Autowired
     private CustomerMapper customerMapper;
@@ -38,5 +43,12 @@ public class CustomerController {
         var customerResponse = customerMapper.toCustomerResponse(customer);
         return ResponseEntity.ok().body(customerResponse);
     }
+    @PutMapping("/{id}")
+    public ResponseEntity<Void> update(@PathVariable String id, @Valid @RequestBody CustomerRequest customerRequest) {
+        Customer customer = customerMapper.toCustomer(customerRequest);
+        customer.setID(id);
+        updateCustomerInputPort.update(customer,customerRequest.getZipCode());
 
+        return  ResponseEntity.noContent().build();
+    }
 }

@@ -10,9 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Mapper(componentModel = "spring")
 public interface CustomerMapper {
 
-    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "ID", ignore = true)
     @Mapping(target = "address", ignore = true)
-    @Mapping(target = "isValidCpf", ignore = true)
+    @Mapping(target = "validCpf", ignore = true)
     Customer toCustomer(CustomerRequest customerRequest);
 
     CustomerResponse toCustomerResponse(Customer customer);
