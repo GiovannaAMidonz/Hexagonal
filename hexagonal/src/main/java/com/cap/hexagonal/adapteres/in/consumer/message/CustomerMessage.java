@@ -12,7 +12,7 @@ public class CustomerMessage {
 
     private String ID;
     private String name;
-    private Address address;
+    private String zipCode;
     private String CPF;
     private Boolean isValidCpf;
 
